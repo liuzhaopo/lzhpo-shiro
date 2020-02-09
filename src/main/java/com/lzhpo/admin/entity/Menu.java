@@ -67,6 +67,7 @@ public class Menu extends TreeEntity<Menu> {
         this.icon = icon;
     }
 
+    @Override
     public String getParentId() {
         return parentId;
     }

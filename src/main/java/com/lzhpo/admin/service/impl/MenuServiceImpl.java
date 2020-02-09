@@ -6,6 +6,8 @@ import com.lzhpo.admin.entity.Menu;
 import com.lzhpo.admin.entity.vo.ShowMenuVo;
 import com.lzhpo.admin.mapper.MenuMapper;
 import com.lzhpo.admin.service.MenuService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +33,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
+    @Cacheable("menus")
     public List<Menu> selectAllMenus(Map<String, Object> map) {
         return baseMapper.getMenus(map);
     }
 
     @Override
+    @Cacheable("menus")
     public List<Menu> selectAllMenuList(Map<String, Object> map) {
         return baseMapper.selectByMap(map);
     }
@@ -77,6 +81,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "menus", allEntries = true)
     public void saveOrUpdateMenu(Menu menu) {
         saveOrUpdate(menu);
     }
