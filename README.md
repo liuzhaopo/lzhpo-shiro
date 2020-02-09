@@ -34,13 +34,13 @@
 ## 技术栈
 
 -   JDK 1.8
--   SpringBoot 2.0.3.RELEASE
--   shiro 1.4.0
+-   SpringBoot 2.2.4.RELEASE
+-   Shiro 1.4.0
 -   Mybatis-Plus 3.0-RC1
--   layui 2.4.5
--   fastjson 1.2.41
+-   Layui 2.4.5
+-   FastJson 1.2.62
 -   MySQL
--   cuisongliu(验证码)
+-   Redis
 
 ## 使用说明
 
@@ -74,10 +74,10 @@ git clone https://github.com/liuzhaopo/lzhpo-shiro.git
 
 喜欢的话，先star，然后可以小额打赏一下哈~
 
-### 支付宝
+| 支付宝                                                       | 微信                                                 |
+| ------------------------------------------------------------ | ---------------------------------------------------- |
+| ![](http://cdn.liuzhaopo.top/%E6%94%AF%E4%BB%98%E5%AE%9D.png) | ![](http://cdn.liuzhaopo.top/%E5%BE%AE%E4%BF%A1.png) |
 
-![](http://cdn.liuzhaopo.top/%E6%94%AF%E4%BB%98%E5%AE%9D.png)
+### 
 
-### 微信
 
-![](http://cdn.liuzhaopo.top/%E5%BE%AE%E4%BF%A1.png)
