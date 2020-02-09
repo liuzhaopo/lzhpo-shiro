@@ -1,0 +1,16 @@
+form input.layui-input[disabled]{ background:#f2f2f2; color:#595963!important; }
+.layui-table,.layui-table th{ text-align:center; }
+.userAddress.layui-form-item .layui-input-inline{ width:23%; }
+.userAddress.layui-form-item .layui-input-inline:last-child{ margin-right:0; }
+/*列表*/
+#page{ text-align:right; }
+
+@media screen and (max-width:450px){
+    layui-form-item .layui-input-inline{ width:auto; }
+}
+
+.layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+    height: 34px;
+    line-height: 34px;
+    padding: 0 8px;
+}

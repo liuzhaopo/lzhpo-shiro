@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzhpo.admin.mapper.MenuMapper">
+
+  <resultMap id="showMenuMap" type="com.lzhpo.admin.entity.vo.ShowMenuVo">
+    <result property="id"       column="id" />
+    <result property="pid"      column="pid"/>
+    <result property="title"    column="title"/>
+    <result property="icon"     column="icon"/>
+    <result property="href"     column="href"/>
+    <collection property="children" select="selectShowMenuByUser"  column="{parentId = id,userId = myuserId}">
+    </collection>
+  </resultMap>
+
+  <select id="selectShowMenuByUser" resultMap="showMenuMap" parameterType="java.util.Map">
+    SELECT
+    distinct m.id as "id",
+    m.parent_id as "pid",
+    m.name as "title",
+    m.icon as "icon",
+    m.href as "href",
+    m.sort,
+    #{userId}  as "myuserId"
+    FROM
+    (select * from sys_menu where del_flag = FALSE ) m
+    LEFT JOIN sys_role_menu srm on srm.menu_id = m.id
+    LEFT JOIN sys_role r on r.id = srm.role_id
+    LEFT JOIN sys_user_role sur on sur.role_id = r.id
+    LEFT JOIN sys_user u on u.id = sur.user_id
+    WHERE
+    u.id = #{userId}
+    <choose>
+      <when test="parentId != null and parentId !='' ">
+        and m.parent_id = #{parentId}
+      </when>
+      <otherwise>
+        and m.parent_id is NULL
+      </otherwise>
+    </choose>
+    and m.is_show = true
+    order by m.sort desc
+  </select>
+
+  <resultMap type="com.lzhpo.admin.entity.Menu" id="resultMenus">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="parentId" column="parentId"/>
+    <result property="level" column="level"/>
+    <result property="parentIds" column="parentIds"/>
+    <result property="sort" column="sort"/>
+    <result property="href" column="href"/>
+    <result property="target" column="target"/>
+    <result property="icon" column="icon"/>
+    <result property="isShow" column="isShow"/>
+    <result property="bgColor" column="bgColor"/>
+    <result property="permission" column="permission"/>
+    <result property="createId" column="createId"/>
+    <result property="createDate" column="createDate"/>
+    <result property="updateId" column="updateId"/>
+    <result property="updateDate" column="updateDate"/>
+    <result property="remarks" column="remarks"/>
+    <result property="delFlag" column="delFlag"/>
+    <collection property="children" select="getMenus" column="{parentId = id,isShow = myIsShow}">
+    </collection>
+  </resultMap>
+
+  <select id="getMenus" resultMap="resultMenus" parameterType="java.util.Map">
+    select
+    id,
+    name,
+    parent_id as "parentId",
+    parent_ids as "parentIds",
+    level,
+    sort,
+    href,
+    target,
+    icon,
+    is_show as "isShow",
+    bg_color as "bgColor",
+    permission,
+    create_by as "createId",
+    create_date as "createDate",
+    update_by as "updateId",
+    update_date as "updateDate",
+    remarks,
+    del_flag as "delFlag",
+    #{isShow} as "myIsShow" from sys_menu where
+    del_flag = false
+    <choose>
+      <when test="parentId != null and parentId!='' ">
+        and parent_id = #{parentId}
+      </when>
+      <otherwise>
+        and parent_id is NULL
+      </otherwise>
+    </choose>
+    <if test="isShow == true">
+      and is_show = #{isShow}
+    </if>
+    order by sort desc
+  </select>
+
+</mapper>

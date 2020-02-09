@@ -78,7 +78,7 @@ public class ShiroConfig {
      * shiro缓存管理器;
      * 需要注入安全管理器：securityManager
      */
-    @Bean
+    @Bean("shiroCacheManager")
     public EhCacheManager cacheManager(){
         EhCacheManager cacheManager = new EhCacheManager();
         cacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");

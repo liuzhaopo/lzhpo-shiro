@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+    <meta charset="utf-8">
+    <title>用户列表--后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel = "shortcut icon" href="${site.logo}">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
+    <link rel="stylesheet" th:href="@{/static/admin/css/list.css}" media="all" />
+</head>
+<body class="childrenBody">
+<fieldset class="layui-elem-field">
+    <legend>用户检索</legend>
+    <div class="layui-field-box">
+        <form class="layui-form">
+            <div class="layui-inline" style="width: 15%">
+                <input type="text" value="" name="s_key" placeholder="可以输入登录名/邮箱/手机号" class="layui-input search_input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="s_type">
+                    <option value="">用户类型</option>
+                    <option value="admin">后台用户</option>
+                    <option value="page">前台用户</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <a class="layui-btn" lay-submit="" lay-filter="searchForm">查询</a>
+            </div>
+            <shiro:hasPermission name="sys:user:add">
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-normal" data-type="addUser">添加用户</a>
+            </div>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="sys:user:delete">
+            <div class="layui-inline">
+                <a class="layui-btn layui-btn-danger" data-type="deleteSome">批量删除</a>
+            </div>
+            </shiro:hasPermission>
+        </form>
+    </div>
+</fieldset>
+<div class="layui-form users_list">
+    <table class="layui-table" id="userTable" lay-filter="userList"></table>
+
+    <script type="text/html" id="userStatus">
+        {{#  if(d.delFlag == false){ }}
+        <span class="layui-badge layui-bg-green">正常</span>
+        {{#  } else { }}
+        <span class="layui-badge layui-bg-gray">无效</span>
+        {{#  } }}
+
+        {{#  if(d.locked == false){ }}
+        <span class="layui-badge layui-bg-green">启用</span>
+        {{#  } else { }}
+        <span class="layui-badge layui-bg-gray">锁定</span>
+        {{#  } }}
+    </script>
+
+    <script type="text/html" id="userType">
+        {{#  if(d.adminUser){ }}
+        <span class="layui-badge layui-bg-gray">后台用户</span>
+        {{#  } else { }}
+        <span class="layui-badge layui-bg-green">前台用户</span>
+        {{#  } }}
+    </script>
+
+    <script type="text/html" id="userBar">
+        <shiro:hasPermission name="sys:user:lock">
+        {{#  if(d.locked == false){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="lock">锁定</a>
+        {{#  } else { }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="lock">启用</a>
+        {{#  } }}
+        </shiro:hasPermission>
+        <shiro:hasPermission name="sys:user:edit">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="sys:user:delete">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </shiro:hasPermission>
+    </script>
+</div>
+<div id="page"></div>
+<script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/js/tools.js}"></script>
+<script type="text/javascript" th:src="@{/static/admin/js/user/userList.js}"></script>
+</body>
+</html>

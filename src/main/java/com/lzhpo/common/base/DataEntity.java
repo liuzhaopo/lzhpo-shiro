@@ -67,8 +67,6 @@ public abstract class DataEntity<T extends Model> extends BaseEntity<T> {
     protected User updateUser;
 
 
-
-
     public String getCreateId() {
         return createId;
     }

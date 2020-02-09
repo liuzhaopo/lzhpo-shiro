@@ -7,6 +7,7 @@ import com.lzhpo.admin.entity.User;
 import com.lzhpo.admin.mapper.UserMapper;
 import com.lzhpo.admin.service.UserService;
 import com.lzhpo.common.util.Encodes;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

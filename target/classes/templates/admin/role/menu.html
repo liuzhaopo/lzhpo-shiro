@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <th:block th:fragment="addMenuLi(children)">
+        <ul style="padding: 0 15px" >
+            <th:block th:each="child : ${children}">
+                <li th:if="${#lists.isEmpty(child.children)}" style="margin-top: 5px;margin-left: 1.5em">
+                    <input type="checkbox" th:title="${child.name}" th:value="${child.id}"
+                           lay-filter="roleMenu" th:data-parentIds="${child.parentIds}"/>
+                </li>
+                <li th:unless="${#lists.isEmpty(child.children)}" style="margin-top: 5px;margin-left: 1.5em">
+                    <input type="checkbox" th:title="${child.name}" th:value="${child.id}"
+                           th:data-parentIds = "${child.parentIds}"  lay-filter="roleMenu"/>
+                    <th:block th:include="/admin/role/menu::addMenuLi(${child.children})"/>
+                </li>
+            </th:block>
+        </ul>
+    </th:block>
+
+    <th:block th:fragment="editMenuLi(children)">
+        <ul style="padding: 0 15px" >
+            <th:block th:each="child : ${children}">
+                <li th:if="${#lists.isEmpty(child.children)}" style="margin-top: 5px;margin-left: 1.5em">
+                    <input type="checkbox" th:title="${child.name}" th:value="${child.id}"
+                           lay-filter="roleMenu" th:data-parentIds="${child.parentIds}"
+                           th:checked="${#strings.contains(menuIds,child.id)} ? checked "/>
+                </li>
+                <li th:unless="${#lists.isEmpty(child.children)}" style="margin-top: 5px;margin-left: 1.5em">
+                    <input type="checkbox" th:title="${child.name}" th:value="${child.id}"
+                           th:data-parentIds = "${child.parentIds}"  lay-filter="roleMenu"
+                           th:checked="${#strings.contains(menuIds,child.id)} ? checked " />
+                    <th:block th:include="/admin/role/menu::editMenuLi(${child.children})"/>
+                </li>
+            </th:block>
+        </ul>
+    </th:block>
+
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <head>
+        <meta charset="utf-8">
+        <title>菜单管理</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}" media="all" />
+        <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+        <link rel="stylesheet" th:href="@{/static/admin/css/list.css}" media="all" />
+    </head>
+    <body class="childrenBody">
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <blockquote class="layui-elem-quote">
+                    <div class="layui-inline">
+                        <a class="layui-btn" data-type="btnExpand"><i class="layui-icon">&#xe625;</i>全部展开</a>
+                    </div>
+                    <div class="layui-inline">
+                        <a class="layui-btn" data-type="btnFold"><i class="layui-icon">&#xe623;</i>全部折叠</a>
+                    </div>
+                    <shiro:hasPermission name="sys:menu:add">
+                    <div class="layui-inline">
+                        <a class="layui-btn layui-btn-normal" data-type="addMenu"><i class="layui-icon">&#xe654;</i>添加目录</a>
+                    </div>
+                    </shiro:hasPermission>
+                </blockquote>
+                <div class="layui-form">
+                    <table id="authTable" class="layui-table" lay-filter="authList"></table>
+                    <script type="text/html" id="authBar">
+                        <shiro:hasPermission name="sys:menu:add">
+                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="addChildMenu"><i class="layui-icon">&#xe654;</i> 添加子菜单</a>
+                        </shiro:hasPermission>
+                        <shiro:hasPermission name="sys:menu:edit">
+                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="editChildMenu"><i class="layui-icon">&#xe642;</i> 编辑 </a>
+                        </shiro:hasPermission>
+                        <shiro:hasPermission name="sys:menu:add">
+                            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delMenu"><i class="layui-icon">&#xe640;</i> 删除</a>
+                        </shiro:hasPermission>
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+        <script type="text/javascript" th:src="@{/static/admin/js/tools.js}"></script>
+        <script type="text/javascript" th:src="@{/static/admin/js/menu/menuList.js}"></script>
+        <script> </script>
+    </body>
+</html>
