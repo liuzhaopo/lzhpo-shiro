@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lzhpo.admin.entity.Role;
 import com.lzhpo.admin.mapper.RoleMapper;
 import com.lzhpo.admin.service.RoleService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "roles", allEntries = true)
     public Role saveRole(Role role) {
         baseMapper.insert(role);
         if(role.getMenuSet() != null && role.getMenuSet().size() > 0) {
@@ -43,6 +46,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "roles", allEntries = true)
     public void updateRole(Role role) {
         baseMapper.updateById(role);
         baseMapper.dropRoleMenus(role.getId());
@@ -53,6 +57,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "roles", allEntries = true)
     public void deleteRole(Role role) {
         role.setDelFlag(true);
         baseMapper.updateById(role);
@@ -61,6 +66,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements Rol
     }
 
     @Override
+    @Cacheable("roles")
     public List<Role> selectAll() {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq("del_flag",false);
