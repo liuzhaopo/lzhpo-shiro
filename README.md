@@ -70,6 +70,9 @@ git clone https://github.com/liuzhaopo/lzhpo-shiro.git
 登录账号：admin
 登录密码：123456
 
+## 感谢JetBrains提供的免费开源License
+[JetBrains](https://www.jetbrains.com/?from=lzhpo-shiro)
+
 ## 打赏作者
 
 喜欢的话，先star，然后可以小额打赏一下哈~
