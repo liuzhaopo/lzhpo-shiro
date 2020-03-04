@@ -71,7 +71,7 @@ git clone https://github.com/liuzhaopo/lzhpo-shiro.git
 登录密码：123456
 
 ## 感谢JetBrains提供的免费开源License
-[JetBrains](https://www.jetbrains.com/?from=lzhpo-shiro)
+[![https://github.com/lets-mica/mica/raw/c251e176b81518a6a570bf4eb21f525c4f582a81/docs/img/jetbrains.png](https://github.com/lets-mica/mica/raw/c251e176b81518a6a570bf4eb21f525c4f582a81/docs/img/jetbrains.png)](https://www.jetbrains.com/?from=lzhpo-shiro)
 
 ## 打赏作者
 
